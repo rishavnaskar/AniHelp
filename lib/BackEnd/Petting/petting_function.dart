@@ -35,7 +35,7 @@ class Petting {
       }
     } catch (exception) {
       Navigator.pop(context);
-      Scaffold.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
           Components().errorSnackBar("Error uploading to database"));
       print(exception);
     }
@@ -49,9 +49,9 @@ class Petting {
     final smtpServer = gmail(_email, _password);
 
     final message = Message()
-      ..from = Address(_email, 'AniHelp')
+      ..from = Address(_email, 'PetAngle')
       ..recipients.add('${FirebaseAuth.instance.currentUser.email}')
-      ..subject = 'AniHelp Petting Receipt'
+      ..subject = 'PetAngle Petting Receipt'
       ..html =
           "<h1>Thank you for petting ${document["name"]}</h1>\n<p>You have successfully adopted ${document["gender"] == "Male" ? "him" : "her"} for $duration</p>\n<p>Your concerned NGO is ${document["ngo"]} and you may contact them for further details</p>\n<p>NGO email - ${document["ngo_email"]}</p>\n<p>Please pay \$27.454 to the respective NGO strictly on monthly basis for $duration</p>\n<p>The NGO will provide you with live videos and status of your pet every week. For issues, you may post in our issues section.</p>";
 
@@ -60,7 +60,7 @@ class Petting {
         print('Message sent');
       });
     } on MailerException catch (e) {
-      Scaffold.of(context)
+      ScaffoldMessenger.of(context)
           .showSnackBar(Components().errorSnackBar("Error sending mail"));
       print('Message not sent.');
       for (var p in e.problems) {

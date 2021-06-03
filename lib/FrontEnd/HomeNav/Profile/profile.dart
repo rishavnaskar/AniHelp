@@ -30,7 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(icon: Icon(Icons.exit_to_app), onPressed: () => GoogleAuth().googleLogOutUser(context)),
+              IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () => GoogleAuth().googleLogOutUser(context)),
               ProfileNameDetails(firebaseCurrentUser: _firebaseCurrentUser),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               Container(

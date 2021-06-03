@@ -36,6 +36,7 @@ class _MediaScreenState extends State<MediaScreen> {
               bottom: TabBar(
                 indicatorColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
+                
                 labelStyle: TextStyle(
                     fontFamily: "CarterOne",
                     fontWeight: FontWeight.bold,

@@ -18,6 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return SafeArea(
       child: ModalProgressHUD(
         inAsyncCall: _isLoading,
+        color: Color(0xff1b4d3e),
         child: Scaffold(
           body: Container(
             decoration: BoxDecoration(

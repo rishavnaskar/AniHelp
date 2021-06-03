@@ -14,7 +14,7 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   var padding = EdgeInsets.symmetric(horizontal: 18, vertical: 5);
   double gap = 10;
-  List body = [DonateScreen(), PostsScreen(),MediaScreen(), ProfileScreen()];
+  List body = [DonateScreen(), PostsScreen(), MediaScreen(), ProfileScreen()];
   PageController _pageController = PageController();
 
   @override
@@ -30,9 +30,7 @@ class _NavBarState extends State<NavBar> {
           },
           itemCount: 4,
           itemBuilder: (context, position) {
-            return Scaffold(
-              body: body[position],
-            );
+            return body[position];
           }),
       bottomNavigationBar: SafeArea(
         child: Container(
@@ -56,7 +54,8 @@ class _NavBarState extends State<NavBar> {
               tabs: [
                 navBarButtons(Icons.pets, "Petify", Color(0xff00a86b)),
                 navBarButtons(Icons.post_add, "Posts", Color(0xff00a86b)),
-                navBarButtons(Icons.video_collection, "Media", Color(0xff00a86b)),
+                navBarButtons(
+                    Icons.video_collection, "Media", Color(0xff00a86b)),
                 navBarButtons(Icons.person, "Me", Color(0xff00a86b)),
               ],
               selectedIndex: _selectedIndex,
@@ -79,14 +78,11 @@ class _NavBarState extends State<NavBar> {
       iconColor: Colors.black,
       iconActiveColor: Color(0xff1b4d3e),
       text: text,
-      textStyle: TextStyle(
-          fontFamily: 'CarterOne',
-          letterSpacing: 1.5),
+      textStyle: TextStyle(fontFamily: 'CarterOne', letterSpacing: 1.5),
       backgroundColor: backgroundColor.withOpacity(0.3),
       iconSize: 24,
       padding: padding,
       gap: gap,
-
     );
   }
 }

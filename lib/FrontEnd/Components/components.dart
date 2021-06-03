@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class Components {
   Widget circularProgressIndicator() {
@@ -36,10 +35,6 @@ class Components {
 }
 
 class AlertDialogBox extends StatefulWidget {
-  AlertDialogBox({@required this.scaffoldKey});
-
-  final scaffoldKey;
-
   @override
   _AlertDialogBoxState createState() => _AlertDialogBoxState();
 }
@@ -111,27 +106,45 @@ class _AlertDialogBoxState extends State<AlertDialogBox> {
         ),
       ),
       actions: [
+        // ignore: deprecated_member_use
         RaisedButton(
           onPressed: () => Navigator.pop(context),
           child: Text("Cancel",
               style: Components().textStyle().copyWith(fontSize: 14)),
           color: Colors.black,
         ),
+        // ignore: deprecated_member_use
         RaisedButton(
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    content: Center(
-                      child: Components().circularProgressIndicator(),
-                    ),
-                  );
+                      content: Components().circularProgressIndicator());
                 });
-            AddPost().addPost(title, content, _image).whenComplete(() {
+            if (title == null ||
+                content == null ||
+                title.isEmpty ||
+                content.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "Please fill all the fields",
+                    style: TextStyle(
+                      fontFamily: "CarterOne",
+                      fontSize: 14,
+                      color: Color(0xff00a86b),
+                    ),
+                  ),
+                ),
+              );
               Navigator.pop(context);
-              Navigator.pop(context);
-            });
+            } else {
+              AddPost().addPost(title, content, _image).whenComplete(() {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+            }
           },
           child: Text("Add",
               style: Components().textStyle().copyWith(fontSize: 14)),

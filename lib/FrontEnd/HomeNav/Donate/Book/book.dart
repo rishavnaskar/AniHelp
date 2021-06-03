@@ -22,7 +22,6 @@ class _BookingScreenState extends State<BookingScreen> {
 
   int _selectedIndex = 6;
   bool _isLoading = false;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,6 @@ class _BookingScreenState extends State<BookingScreen> {
       inAsyncCall: _isLoading,
       progressIndicator: Components().circularProgressIndicator(),
       child: Scaffold(
-        key: _scaffoldKey,
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
           backgroundColor: Color(0xff00a86b),
@@ -143,6 +141,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   },
                   child: durationButtons(100, _selectedIndex)),
               Expanded(child: SizedBox(height: 10)),
+              // ignore: deprecated_member_use
               RaisedButton(
                 child: Text("Start petting",
                     style: _textStyle.copyWith(
@@ -162,7 +161,8 @@ class _BookingScreenState extends State<BookingScreen> {
                       BookFunctions().durationToString(_selectedIndex);
 
                   await Petting()
-                      .pettingFunction(context, widget.document, duration, widget.animalCollection)
+                      .pettingFunction(context, widget.document, duration,
+                          widget.animalCollection)
                       .whenComplete(() {
                     final _snackbar = SnackBar(
                       content: Text("Successfully Petified!",
@@ -177,7 +177,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       _isLoading = false;
                     });
                     //Navigator.pop(context);
-                    _scaffoldKey.currentState
+                    ScaffoldMessenger.of(context)
                         .showSnackBar(_snackbar)
                         .closed
                         .then((value) => Navigator.pop(context));

@@ -10,7 +10,6 @@ class PostsScreen extends StatefulWidget {
 }
 
 class _PostsScreenState extends State<PostsScreen> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _textStyle = TextStyle(
       fontFamily: "Montserrat",
       letterSpacing: 2,
@@ -20,37 +19,36 @@ class _PostsScreenState extends State<PostsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        appBar: AppBar(
-          backgroundColor: Color(0xff00a86b),
-          actions: [
-            Center(
-                child: Text("Add Post",
-                    style: _textStyle.copyWith(
-                        fontSize: 16, fontFamily: "CarterOne"))),
-            SizedBox(width: 20),
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent.withOpacity(0.2),
-                child: IconButton(
-                  icon: Icon(Icons.add_circle),
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialogBox(scaffoldKey: _scaffoldKey);
-                        });
-                  },
-                  color: Colors.white,
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff00a86b),
+        actions: [
+          Center(
+              child: Text("Add Post",
+                  style: _textStyle.copyWith(
+                      fontSize: 16, fontFamily: "CarterOne"))),
+          SizedBox(width: 20),
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent.withOpacity(0.2),
+              child: IconButton(
+                icon: Icon(Icons.add_circle),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialogBox();
+                      });
+                },
+                color: Colors.white,
               ),
             ),
-          ],
-        ),
-        body: Padding(
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsets.all(20),
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
@@ -122,12 +120,18 @@ class _PostsScreenState extends State<PostsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   SizedBox(height: 10),
-                                  Text(posts[index]["title"],
+                                  Text(
+                                      posts[index]["title"] == null
+                                          ? ""
+                                          : posts[index]["title"],
                                       textAlign: TextAlign.end,
                                       maxLines: 3,
                                       style: _textStyle),
                                   SizedBox(height: 20),
-                                  Text(posts[index]["description"],
+                                  Text(
+                                      posts[index]["description"] == null
+                                          ? ""
+                                          : posts[index]["description"],
                                       textAlign: TextAlign.end,
                                       maxLines: 10,
                                       overflow: TextOverflow.ellipsis,
