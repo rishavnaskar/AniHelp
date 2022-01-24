@@ -19,6 +19,10 @@ We have used Flutter, Dart and Firebase for the App Development
 * Go to the "build/app/outputs/apk/release/"
 * Copy and install the "app-release.apk" in your phone
 
+## Demo Video
+
+https://www.youtube.com/watch?v=q6-k2ysGdx8
+
 ## Screenshots
 Home Page             |  Petting Page
 :-------------------------:|:-------------------------:
